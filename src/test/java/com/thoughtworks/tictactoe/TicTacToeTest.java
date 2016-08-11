@@ -13,6 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TicTacToeTest {
 
@@ -26,7 +27,7 @@ public class TicTacToeTest {
         printStream = mock(PrintStream.class);
         reader = mock(BufferedReader.class);
         boardSquares = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
-        ticTacToe = new TicTacToe(printStream, boardSquares,reader);
+        ticTacToe = new TicTacToe(printStream, boardSquares);
     }
 
     @Test
@@ -37,14 +38,16 @@ public class TicTacToeTest {
 
     @Test
     public void shouldChangeCorrespondingSquareInBoardSquaresWhenUserEntersTheirChoice() throws Exception {
-        ticTacToe.setBoardSquare("2");
+        when(reader.readLine()).thenReturn("2");
+        ticTacToe.setBoardSquare("2", "X");
         assertThat(ticTacToe.boardSquares.get(1),is("X"));
     }
 
     @Test
-    public void shouldPrintUpdatedBoardWithXInsteadOfTwo() throws Exception {
-        ticTacToe.setBoardSquare("2");
+    public void shouldPrintUpdatedBoardWithXInsteadOfNumber() throws Exception {
+        when(reader.readLine()).thenReturn("3");
+        boardSquares.set(2,"X");
         ticTacToe.updateBoard();
-        verify(printStream).println("1|X|3\n-----\n4|5|6\n-----\n7|8|9\n");
+        verify(printStream).println("1|2|X\n-----\n4|5|6\n-----\n7|8|9\n");
     }
 }

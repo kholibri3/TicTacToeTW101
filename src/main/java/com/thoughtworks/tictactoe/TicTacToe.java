@@ -12,18 +12,10 @@ public class TicTacToe {
     private PrintStream printStream;
     private String currentBoard;
     protected List<String> boardSquares;
-    private String playerChoice;
-    private BufferedReader reader;
 
-    public TicTacToe(PrintStream printStream, List<String> boardSquares, BufferedReader reader) {
+    public TicTacToe(PrintStream printStream, List<String> boardSquares) {
         this.printStream = printStream;
         this.boardSquares = boardSquares;
-        this.reader = reader;
-    }
-
-    public void playGame() throws IOException {
-        processUserMark();
-        updateBoard();
     }
 
     public void initializeBoard() {
@@ -31,17 +23,12 @@ public class TicTacToe {
         boardSquares = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
     }
 
-    public void setBoardSquare(String playerChoice){
+    protected void setBoardSquare(String playerChoice, String mark){
         int locationToMark = Integer.parseInt(playerChoice);
-        boardSquares.set(locationToMark-1, "X");
+        boardSquares.set(locationToMark-1, mark);
     }
 
-    public void processUserMark() throws IOException {
-        playerChoice = reader.readLine();
-        setBoardSquare(playerChoice);
-    }
-
-    public void updateBoard() {
+    protected void updateBoard() {
         currentBoard = String.format("%s|%s|%s\n-----\n%s|%s|%s\n-----\n%s|%s|%s\n", boardSquares.toArray());
         printStream.println(currentBoard);
     }

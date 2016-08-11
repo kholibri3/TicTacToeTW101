@@ -12,10 +12,16 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<String> boardSquares = new ArrayList<String>();
 
-        TicTacToe ticTacToeBoard = new TicTacToe(System.out, boardSquares, reader);
+        TicTacToe ticTacToeBoard = new TicTacToe(System.out, boardSquares);
+        Game game = new Game(ticTacToeBoard,reader);
         ticTacToeBoard.initializeBoard();
+        System.out.println("Player 1 begins.");
 
-        System.out.println("Player 1 begins! Please enter the # square to place an X.\n");
-        ticTacToeBoard.playGame();
+//        while(!reader.readLine().equals("quit")) {
+            game.play();
+            System.out.println("Player 2's turn! Please enter the # square to place an O.\n");
+            game.play();
+            System.out.println("Player 1's turn! Please enter the # square to place an X.\n");
+//        }
     }
 }
