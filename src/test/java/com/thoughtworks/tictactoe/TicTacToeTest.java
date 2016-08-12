@@ -11,9 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TicTacToeTest {
 
@@ -37,10 +35,10 @@ public class TicTacToeTest {
     }
 
     @Test
-    public void shouldChangeCorrespondingSquareInBoardSquaresWhenUserEntersTheirChoice() throws Exception {
+    public void shouldChangeCorrespondingSquareToXInBoardSquaresWhenUserEntersTheirChoice() throws Exception {
         when(reader.readLine()).thenReturn("2");
         ticTacToe.setBoardSquare("2", "X");
-        assertThat(ticTacToe.boardSquares.get(1),is("X"));
+        assertThat(boardSquares.get(1),is("X"));
     }
 
     @Test

@@ -1,7 +1,5 @@
 package com.thoughtworks.tictactoe;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +9,7 @@ public class TicTacToe {
 
     private PrintStream printStream;
     private String currentBoard;
-    protected List<String> boardSquares;
+    private List<String> boardSquares;
 
     public TicTacToe(PrintStream printStream, List<String> boardSquares) {
         this.printStream = printStream;
@@ -23,12 +21,23 @@ public class TicTacToe {
         boardSquares = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
     }
 
-    protected void setBoardSquare(String playerChoice, String mark){
+    private String getBoardSquare(int index){
+        return boardSquares.get(index);
+    }
+
+//    boolean isSquareOccupied(int squareIndex) {
+//        String currentSquare = getBoardSquare(squareIndex);
+//        if(currentSquare.equals("X") || currentSquare.equals("O"))
+//            return true;
+//        return false;
+//    }
+
+    void setBoardSquare(String playerChoice, String mark){
         int locationToMark = Integer.parseInt(playerChoice);
         boardSquares.set(locationToMark-1, mark);
     }
 
-    protected void updateBoard() {
+    void updateBoard() {
         currentBoard = String.format("%s|%s|%s\n-----\n%s|%s|%s\n-----\n%s|%s|%s\n", boardSquares.toArray());
         printStream.println(currentBoard);
     }

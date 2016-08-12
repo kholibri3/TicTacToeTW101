@@ -2,38 +2,52 @@ package com.thoughtworks.tictactoe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
 
 public class Game {
 
     private TicTacToe ticTacToe;
     private String playerChoice;
     private BufferedReader reader;
-    private String currentPlayer;
+    private PrintStream printStream;
+    String currentPlayer;
     private boolean switchPlayer;
 
-    public Game(TicTacToe ticTacToe, BufferedReader reader){
+    public Game(TicTacToe ticTacToe, BufferedReader reader, PrintStream printStream){
         this.ticTacToe = ticTacToe;
         this.reader = reader;
+        this.printStream = printStream;
+        switchPlayer = false;
         currentPlayer = "X";
     }
 
-    private void switchPlayer() {
+    private void setXOrO() {
+        switchPlayer = !switchPlayer;
+
         if(switchPlayer)
-            currentPlayer = "X";
-        else
             currentPlayer = "O";
+        else
+            currentPlayer = "X";
+
+        System.out.println("Switch players! Please enter the # square to place an " + currentPlayer + ".\n");
+    }
+
+    private void processUserMark(String playerChoice) throws IOException {
+        ticTacToe.setBoardSquare(playerChoice, currentPlayer);
     }
 
     public void play() throws IOException {
-        switchPlayer = true;
-        processUserMark();
-        ticTacToe.updateBoard();
-        switchPlayer = false;
-        switchPlayer();
+        playerChoice = reader.readLine();
+
+        while(!playerChoice.equals("0")){
+            userTakesTurn();
+            playerChoice = reader.readLine();
+        }
     }
 
-    private void processUserMark() throws IOException {
-        playerChoice = reader.readLine();
-        ticTacToe.setBoardSquare(playerChoice, currentPlayer);
+    void userTakesTurn() throws IOException {
+        processUserMark(playerChoice);
+        ticTacToe.updateBoard();
+        setXOrO();
     }
 }

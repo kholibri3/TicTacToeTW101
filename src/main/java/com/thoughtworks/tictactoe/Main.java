@@ -8,20 +8,16 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.out.println("~ Welcome to Tic Tac Toe ~\n");
+        System.out.println("~ Welcome to Tic Tac Toe ~");
+        System.out.println("Press '0' at any time to quit.\n");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<String> boardSquares = new ArrayList<String>();
 
         TicTacToe ticTacToeBoard = new TicTacToe(System.out, boardSquares);
-        Game game = new Game(ticTacToeBoard,reader);
+        Game game = new Game(ticTacToeBoard, reader, System.out);
         ticTacToeBoard.initializeBoard();
         System.out.println("Player 1 begins.");
 
-//        while(!reader.readLine().equals("quit")) {
-            game.play();
-            System.out.println("Player 2's turn! Please enter the # square to place an O.\n");
-            game.play();
-            System.out.println("Player 1's turn! Please enter the # square to place an X.\n");
-//        }
+        game.play();
     }
 }
