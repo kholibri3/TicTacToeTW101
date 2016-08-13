@@ -8,11 +8,11 @@ import java.util.List;
 public class Board {
 
     private PrintStream printStream;
-    private List<String> boardSquares;
+    private List<String> boardSquares = new ArrayList<String>(Arrays.asList(" "," "," "," "," "," "," "," "," "));
 
-    public Board(PrintStream printStream) {
+    public Board(PrintStream printStream, List<String> boardSquares) {
         this.printStream = printStream;
-        this.boardSquares = new ArrayList<String>(Arrays.asList("1","2","3","4","5","6","7","8","9"));
+        this.boardSquares = boardSquares;
     }
 
     public void draw() {
@@ -25,4 +25,12 @@ public class Board {
         printStream.println(currentBoard);
     }
 
+    public void updateSquare(int squareToMark, String symbol) {
+        boardSquares.set(squareToMark, symbol);
+    }
+
+    public boolean squareIsFree(int squareToMark) {
+        System.out.println(boardSquares.get(squareToMark-1));
+        return boardSquares.get(squareToMark - 1).equals(" ");
+    }
 }
