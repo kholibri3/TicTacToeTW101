@@ -29,8 +29,10 @@ public class Board {
         boardSquares.set(squareToMark, symbol);
     }
 
-    public boolean squareIsFree(int squareToMark) {
-        System.out.println(boardSquares.get(squareToMark-1));
-        return boardSquares.get(squareToMark - 1).equals(" ");
+    public boolean isSquareAvailable(int squareToMark) {
+        if(boardSquares.get(squareToMark - 1).equals(" ")){
+            return true;
+        }
+        return false;
     }
 }

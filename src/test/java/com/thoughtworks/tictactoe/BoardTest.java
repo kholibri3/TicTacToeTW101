@@ -36,7 +36,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldChangeCorrespondingSquareToXInBoardSquaresWhenUserEntersTheirChoice() {
+    public void shouldChangeCorrespondingSquareToXInBoardSquares() {
         board.updateSquare(2, "X");
         assertThat(boardSquares.get(2), is("X"));
     }

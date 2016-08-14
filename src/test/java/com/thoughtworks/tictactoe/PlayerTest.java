@@ -12,8 +12,7 @@ import static org.mockito.Mockito.*;
 public class PlayerTest {
 
     private Board board;
-    private Player playerOne;
-    private Player playerTwo;
+    private Player player;
     private BufferedReader reader;
     private PrintStream printStream;
 
@@ -22,29 +21,30 @@ public class PlayerTest {
         board = mock(Board.class);
         reader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        playerOne = new Player("X", board, reader, printStream);
-        playerTwo = new Player("O", board, reader, printStream);
+        player = new Player("X", board, reader, printStream);
     }
 
     @Test
     public void shouldMarkBoardWithXWhenPlayerOneMoves() throws IOException {
         when(reader.readLine()).thenReturn("1");
-        playerOne.move();
+        when(board.isSquareAvailable(anyInt())).thenReturn(false, true);
+        player.move();
         verify(board).updateSquare(0, "X");
     }
 
     @Test
-    public void shouldMarkBoardWithOWhenPlayerTwoMoves() throws IOException {
-        when(reader.readLine()).thenReturn("3");
-        playerTwo.move();
-        verify(board).updateSquare(2, "O");
+    public void shouldOnlyUpdateBoardOnceWhenUserTriesToMarkAlreadyTakenSquare() throws IOException {
+        when(reader.readLine()).thenReturn("5", "5");
+        when(board.isSquareAvailable(anyInt())).thenReturn(false, true);
+        player.move();
+        verify(board, times(1)).updateSquare(4, "X");
     }
 
     @Test
-    public void shouldPrintInvalidMessageIfPlayerChoosesOccupiedSquareOnBoard() throws IOException {
-        when(reader.readLine()).thenReturn("3", "3");
-        playerOne.move();
-        playerTwo.move();
+    public void shouldPrintInvalidMessageIfPlayerChoosesOccupiedSquareOnBoard() throws Exception {
+        when(reader.readLine()).thenReturn("5", "5", "1");
+        when(board.isSquareAvailable(anyInt())).thenReturn(false, true, true);
+        player.move();
         verify(printStream).println("Sorry, that location is already taken! Please enter a new #.");
     }
 }

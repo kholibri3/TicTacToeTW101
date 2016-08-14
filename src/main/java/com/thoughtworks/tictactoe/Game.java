@@ -20,7 +20,6 @@ public class Game {
     public void start() throws IOException {
         board.draw();
         System.out.println("Player 1 begins!\n");
-
         playerOne.move();
         board.draw();
         System.out.println("Player 2's turn.\n");

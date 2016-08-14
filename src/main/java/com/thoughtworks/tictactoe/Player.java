@@ -22,8 +22,7 @@ public class Player {
 
     public void move() throws IOException {
         squareToMark = Integer.parseInt(reader.readLine());
-        if(!board.squareIsFree(squareToMark)) {
-            System.out.println("in while");
+        while(!board.isSquareAvailable(squareToMark)) {
             printStream.println("Sorry, that location is already taken! Please enter a new #.");
             squareToMark = Integer.parseInt(reader.readLine());
         }
